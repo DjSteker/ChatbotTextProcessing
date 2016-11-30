@@ -103,7 +103,7 @@ __Team members__: Pricop Ovidiu, Butnaru Adrian, Ciuc Tiberiu, Ciubotariu Alexan
   * Response Schema
   ```javascript
   {
-    "title": ""Get Word Synonyms Response",
+    "title": "Get Word Synonyms Response",
     "type": "object",
     "required": [ 
       "wordSynonyms", "error"
