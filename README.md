@@ -75,21 +75,10 @@ The following communication schema (request-response) serves for text annotation
 The following communication schema (request-response) will be used by the AI module to invoke the text-processing module and get the annotated user input based on the supplied user string input.
 
   * Request Schema 
-  ```javascript
-  {
-    "title": "Get user annotated input",
-    "type": "object",
-    "required": [ 
-      "userRawInput"
-    ],
-    "properties": {
-      "userRawInput": {
-        "type": "string",
-        "description": "A string representing the raw user input"
-      }
-    }
-  }
-  ```
+  
+  __GET /chatbot/textprocess/v1/annotate?sentence=$s__
+  
+  Where __$s__ is an arbitrary raw user input (string).
   
   * Response Schema
   ```javascript
