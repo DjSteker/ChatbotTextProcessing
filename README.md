@@ -76,7 +76,7 @@ The following communication schema (request-response) will be used by the AI mod
 
   * Request Schema 
   
-  __GET /chatbot/textprocess/v1/annotate?sentence=$s__
+  __GET /api/textprocess/v1/annotate?sentence=$s__
   
   Where __$s__ is an arbitrary raw user input (string).
   
