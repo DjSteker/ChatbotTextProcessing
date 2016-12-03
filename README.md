@@ -72,20 +72,20 @@ The following communication schema (request-response) serves for text annotation
   ```
 
 ## 5. Artifficial intelligence communication interface (Uses HTTP requests):
-The following communication schema (request-response) will be used by the text-processing module to invoke the AI module and get the chatbot's response to the annotated user input.
+The following communication schema (request-response) will be used by the AI module to invoke the text-processing module and get the annotated user input based on the supplied user string input.
 
   * Request Schema 
   ```javascript
   {
-    "title": "Get chatbot computed response Request",
+    "title": "Get user annotated input",
     "type": "object",
     "required": [ 
-      "inputData"
+      "userRawInput"
     ],
     "properties": {
-      "inputData": {
+      "userRawInput": {
         "type": "string",
-        "description": "An xml document with the pre-processed, proofread and annotated user raw input string"
+        "description": "A string representing the raw user input"
       }
     }
   }
@@ -97,11 +97,11 @@ The following communication schema (request-response) will be used by the text-p
     "title": "Get chatbot computed response Response",
     "type": "object",
     "required": [ 
-      "content", "eror"
+      "annotatedUserInput", "error"
     ],
     "properties": {
-      "content": {
-        "description": "A string representing the computed response of the chatbot, using the developed AI",
+      "annotatedUserInput": {
+        "description": "An XML document representing the pre-processed, proofread and annotated user raw input string",
         "type": "string"
       }
       "error": {
@@ -118,4 +118,4 @@ The following communication schema (request-response) will be used by the text-p
   ```
   
 ## 6. Artifficial intelligence output post-processing (Uses HTTP requests):
-A string will be received from the AI module as the bot's response to the user-supplied input. This string needs to be parsed, corrected (and annotated). [this section needs more information]
+[TODO] A string will be received from the AI module as the bot's response to the user-supplied input. This string needs to be parsed, corrected (and annotated). [this section needs more information]
