@@ -1,7 +1,7 @@
 # ChatbotTextProcessing
 Text processing for chatbot IA lab implementation
 
-__Team members__: Pricop Ovidiu, Butnaru Adrian, Ciuc Tiberiu, Ciubotariu Alexandru, Dorneanu Cristian, Lucian Alexandru, Rusu Alexandru, Buruiana Sebastian
+__Team members__: Pricop Ovidiu, Butnaru Adrian, Ciuc Tiberiu, Ciubotariu Alexandru, Dorneanu Cristian, Lucian Alexandru, Rusu Alexandru
 
 # Chatbot inter-module interactions overview:
 1. Chatbot receives user raw input as string
