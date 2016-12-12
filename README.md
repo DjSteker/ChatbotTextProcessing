@@ -3,6 +3,8 @@ Text processing for chatbot IA lab implementation
 
 __Team members__: Pricop Ovidiu, Butnaru Adrian, Ciuc Tiberiu, Ciubotariu Alexandru, Dorneanu Cristian, Lucian Alexandru, Rusu Alexandru
 
+__Live api endpoint:__ http://ec2-52-212-128-197.eu-west-1.compute.amazonaws.com/api/v1
+
 # Chatbot inter-module interactions overview:
 1. Chatbot receives user raw input as string
 2. Raw input is proofread (corrected), processed and translated into an xml tree that gets annotated with metadata
