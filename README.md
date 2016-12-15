@@ -76,39 +76,7 @@ The following communication schema (request-response) serves for text annotation
   ```
 
 ## 5. Artifficial intelligence communication interface (Uses HTTP requests):
-The following communication schema (request-response) will be used by the AI module to invoke the text-processing module and get the annotated user input based on the supplied user string input.
-
-  * Request Schema 
-  
-  __GET /api/v1/nltk/annotation?sentence=$s__
-  
-  Where __$s__ is an arbitrary raw user input (string).
-  
-  * Response Schema
-  ```javascript
-  {
-    "title": "Get chatbot computed response Response",
-    "type": "object",
-    "required": [ 
-      "annotatedUserInput", "error"
-    ],
-    "properties": {
-      "annotatedUserInput": {
-        "description": "An XML document representing the pre-processed, proofread and annotated user raw input string",
-        "type": "string"
-      }
-      "error": {
-        "type": "boolean"
-      },
-      "errorMessage": {
-        "type": "string"
-      },
-      "errorId": {
-        "type": "integer"
-      }
-    }
-  }
-  ```
+The AI module will invoke the text-processing module and get the annotated user input based on the supplied user string input.
   
 ## 6. Artifficial intelligence output post-processing (Uses HTTP requests):
 [TODO] A string will be received from the AI module as the bot's response to the user-supplied input. This string needs to be parsed, corrected (and annotated). [this section needs more information]
