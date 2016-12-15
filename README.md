@@ -80,7 +80,7 @@ The following communication schema (request-response) will be used by the AI mod
 
   * Request Schema 
   
-  __GET /api/v1/nltk/annotate?sentence=$s__
+  __GET /api/v1/nltk/annotation?sentence=$s__
   
   Where __$s__ is an arbitrary raw user input (string).
   
