@@ -1,9 +1,3 @@
-# Christopher Reeves Web Scraping Tutorial
-# simple web spider that returns array of urls.
-# http://youtube.com/creeveshft
-# http://christopherreevesofficial.com
-# http://twitter.com/cjreeves2011
-
 import urllib
 import urlparse
 import mechanize
