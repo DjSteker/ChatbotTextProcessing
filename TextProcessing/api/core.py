@@ -3,9 +3,11 @@ from xml.etree.ElementTree import tostring
 
 from nltk.data import load
 
-from api.models import JsonApiDescription, JsonAcronymToPartOfSpeech, JsonError, JsonAnnotatedSentence
+from api.models import JsonApiDescription, JsonAcronymToPartOfSpeech, JsonError, JsonAnnotatedSentence, JsonResponseErrorMessage, \
+    JsonDetectLanguage
 
 # noinspection PyBroadException
+from api.nltk.languagedetector import GenerateReply, DetectLanguage
 from api.nltk.sentencetreebuilder import SentenceTreeBuilder
 
 
@@ -50,6 +52,20 @@ class JsonGenerator:
         return json.dumps({
             JsonAnnotatedSentence.annotatedSentence: tostring(
                 element=SentenceTreeBuilder.build_text_xml(requestSentence), encoding="unicode"),
+            JsonError.errorField: False
+        })
+
+    @staticmethod
+    def buildGenerateErrorMessageResponse(requestLanguage):
+        return json.dumps({
+            JsonResponseErrorMessage.responseErrorMessage: GenerateReply(requestLanguage),
+            JsonError.errorField: False
+        })
+
+    @staticmethod
+    def buildDetectLanguageResponse(message):
+        return json.dumps({
+            JsonDetectLanguage.language: DetectLanguage(message),
             JsonError.errorField: False
         })
 

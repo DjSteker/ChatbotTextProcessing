@@ -1,8 +1,10 @@
 from django.http import HttpResponse
+from langdetect.lang_detect_exception import LangDetectException
 
 from api.core import JsonGenerator
 from api.errors import UnauthorizedError, UnsupportedHttpVerbError, ExpectedParametersNotSupplied, \
-    NltkAcronymToPartOfSpeechError, NltkAnnotateSentenceError
+    NltkAcronymToPartOfSpeechError, NltkAnnotateSentenceError, GenerateErrorMessageError, GenerateDetectLanguageError
+from api.nltk.languagedetector import LanguageIdentificationError, LanguageDetectionError
 
 TextJson = "application/json"
 
@@ -53,6 +55,47 @@ def nltkAnnotateSentence(request):
     except Exception as e:
         return internalErrorResponse(
             request, JsonGenerator.buildErrorResponse(NltkAnnotateSentenceError(str(e))))
+
+
+def nltkGenerateErrorMessage(request):
+    if request.method != "GET":
+        return unsupportedHttpVerb(request)
+
+    expectedQueryParameters = ["language"]
+    requestLanguage = request.GET.get("language")
+    if requestLanguage is None:
+        return urlParameterNotSupplied(request, expectedQueryParameters)
+
+    try:
+        response = HttpResponse(content_type=TextJson)
+        response.status_code = 200
+        response.write(JsonGenerator.buildGenerateErrorMessageResponse(requestLanguage))
+        return response
+    except LanguageIdentificationError as e:
+        return internalErrorResponse(
+            request, JsonGenerator.buildErrorResponse(GenerateErrorMessageError(e.message)))
+
+
+def nltkDetectLanguage(request):
+    if request.method != "GET":
+        return unsupportedHttpVerb(request)
+
+    expectedQueryParameters = ["message"]
+    requestLanguage = request.GET.get("message")
+    if requestLanguage is None:
+        return urlParameterNotSupplied(request, expectedQueryParameters)
+
+    try:
+        response = HttpResponse(content_type=TextJson)
+        response.status_code = 200
+        response.write(JsonGenerator.buildDetectLanguageResponse(requestLanguage))
+        return response
+    except LanguageDetectionError as e:
+        return internalErrorResponse(
+            request, JsonGenerator.buildErrorResponse(GenerateDetectLanguageError(e.message)))
+    except LangDetectException as e:
+        return internalErrorResponse(
+            request, JsonGenerator.buildErrorResponse(GenerateDetectLanguageError(str(e))))
 
 
 def unknownRoute(request):

@@ -7,6 +7,14 @@ class ApiError:
         self.message = message
 
 
+class ExpectedParametersNotSupplied(ApiError):
+    def __init__(self, parametersAsString):
+        super().__init__(
+            code=0,
+            message="Expected the following query parameters but did not get them: " + parametersAsString + "."
+        )
+
+
 class UnauthorizedError(ApiError):
     def __init__(self):
         super().__init__(
@@ -39,9 +47,17 @@ class NltkAnnotateSentenceError(ApiError):
         )
 
 
-class ExpectedParametersNotSupplied(ApiError):
-    def __init__(self, parametersAsString):
+class GenerateErrorMessageError(ApiError):
+    def __init__(self, message):
         super().__init__(
-            code=4,
-            message="Expected the following query parameters but did not get them: " + parametersAsString + "."
+            code=5,
+            message=message
+        )
+
+
+class GenerateDetectLanguageError(ApiError):
+    def __init__(self, message):
+        super().__init__(
+            code=6,
+            message=message
         )

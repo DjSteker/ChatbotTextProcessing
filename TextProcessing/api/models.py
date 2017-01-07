@@ -18,6 +18,14 @@ class JsonAnnotatedSentence:
     annotatedSentence = "annotatedSentence"
 
 
+class JsonResponseErrorMessage:
+    responseErrorMessage = "responseErrorMessage"
+
+
+class JsonDetectLanguage:
+    language = "language"
+
+
 class JsonError:
     errorField = "error"
     errorCodeField = "errorId"
