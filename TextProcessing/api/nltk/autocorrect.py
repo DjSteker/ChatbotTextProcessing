@@ -24,10 +24,8 @@ class AutoCorrect:
                     raise SuggestionNotFoundException
             else:
                 suggestions.append(word)
-        if foundError == False:
-            return None
-        else:
-            return ' '.join(suggestions)
+       
+        return ' '.join(suggestions)
 
 
 class SuggestionNotFoundException(Exception):
