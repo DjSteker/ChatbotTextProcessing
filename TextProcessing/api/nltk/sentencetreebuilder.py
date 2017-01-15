@@ -26,36 +26,39 @@ class SentenceTreeBuilder:
             words = [x for x in words if  WordsAnalyzer.is_punctuation(x) == 0]
             list_anaphora.append(words)
         drs_list = []
-        for sentence in list_anaphora:
-            trees = list(__class__.parser.parse(sentence))
-            if len(trees) > 0:
-                drs_list.append(trees[0].label()['SEM'].simplify())
-        drs_sum = ""
-        read_dexpr = nltk.sem.DrtExpression.fromstring
-        for drs in drs_list:
-            drs_expr = read_dexpr(str(drs))
-            drs_sum += str(drs_expr) + " + "
-        drs_sum = drs_sum[:-3]
-        drs_sum = read_dexpr(drs_sum)
-        #print(drs_sum.simplify())
-        anaphora_rezolved = drs_sum.simplify().resolve_anaphora()
-        anaphora_rezolved = str(anaphora_rezolved)
-        index_after_var_list = anaphora_rezolved.find('],[')
+        try:
+            for sentence in list_anaphora:
+                trees = list(__class__.parser.parse(sentence))
+                if len(trees) > 0:
+                    drs_list.append(trees[0].label()['SEM'].simplify())
+            drs_sum = ""
+            read_dexpr = nltk.sem.DrtExpression.fromstring
+            for drs in drs_list:
+                drs_expr = read_dexpr(str(drs))
+                drs_sum += str(drs_expr) + " + "
+            drs_sum = drs_sum[:-3]
+            drs_sum = read_dexpr(drs_sum)
+            #print(drs_sum.simplify())
+            anaphora_rezolved = drs_sum.simplify().resolve_anaphora()
+            anaphora_rezolved = str(anaphora_rezolved)
+            index_after_var_list = anaphora_rezolved.find('],[')
 
-        content = anaphora_rezolved[index_after_var_list+3:-2]
-        list_variables_mapped_to_words = content.split(', ')
-        #print(list_variables_mapped_to_words)
-        pattern = "\(*(\w+)\((\w+)\)*( = \(\w+ = (\[\w+(,\w+)*\])\))?\)*"
-        list_tuple_word_var_variable_can_be_replaced_with = []
-        for elem in list_variables_mapped_to_words:
-            matcher = re.match(pattern, elem)
-            print(matcher)
-            if matcher == None:
-                continue
-            group_for_pronoun_only = None
-            if matcher.group(4) is not None:
-                group_for_pronoun_only = matcher.group(4)
-            list_tuple_word_var_variable_can_be_replaced_with.append((matcher.group(1), matcher.group(2),group_for_pronoun_only))
+            content = anaphora_rezolved[index_after_var_list+3:-2]
+            list_variables_mapped_to_words = content.split(', ')
+            #print(list_variables_mapped_to_words)
+            pattern = "\(*(\w+)\((\w+)\)*( = \(\w+ = (\[\w+(,\w+)*\])\))?\)*"
+            list_tuple_word_var_variable_can_be_replaced_with = []
+            for elem in list_variables_mapped_to_words:
+                matcher = re.match(pattern, elem)
+                print(matcher)
+                if matcher == None:
+                    continue
+                group_for_pronoun_only = None
+                if matcher.group(4) is not None:
+                    group_for_pronoun_only = matcher.group(4)
+                list_tuple_word_var_variable_can_be_replaced_with.append((matcher.group(1), matcher.group(2),group_for_pronoun_only))
+        except Exception:
+            list_tuple_word_var_variable_can_be_replaced_with = []
 
         for actual_sentence in sentences:
             chile = SubElement(root, 'sentence')
