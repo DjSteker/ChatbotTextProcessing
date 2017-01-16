@@ -125,7 +125,7 @@ class Rake(object):
         keyword_candidates = generate_candidate_keyword_scores(phrase_list, word_scores)
 
         sorted_keywords = sorted(keyword_candidates.items(), key=operator.itemgetter(1), reverse=True)
-        return sorted_keywords
+        return keyword_candidates
 
 
 if __name__ == "__main__":
@@ -160,5 +160,16 @@ def probability_keyword(string):
     sentence = string
     rake_object = Rake(stoppath)
     keywords_score_list = rake_object.run(sentence)
-    return keywords_score_list
 
+    keywords_keys = dict()
+    keywords_string_keys = ''
+    keywords_string_values = ''
+    keywords_values = dict()
+    keywords_list = list()
+    position = 0
+    for i in keywords_score_list:
+        keywords_keys[i] = keywords_score_list[i]
+        keywords_list.insert(position, keywords_keys)
+        keywords_keys = dict()
+        position += 1
+    return keywords_list
