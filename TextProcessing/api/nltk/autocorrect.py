@@ -1,4 +1,5 @@
 import enchant
+from wordfreq import word_frequency
 
 
 class AutoCorrect:
@@ -19,7 +20,9 @@ class AutoCorrect:
             if AutoCorrect.wordDict.check(word) == False:
                 foundError = True
                 try:
-                    suggestions.append(AutoCorrect.wordDict.suggest(word)[0])
+                    corrections = AutoCorrect.wordDict.suggest(word)
+                    corrections = sorted(zip(corrections, [word_frequency(w, 'en') for w in corrections]), key=lambda x:x[1], reverse=True)
+                    suggestions.append(corrections[0][0])
                 except IndexError:
                     raise SuggestionNotFoundException
             else:
