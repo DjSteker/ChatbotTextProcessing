@@ -1,6 +1,9 @@
 import re
 import operator
 
+smart_stop = 'SmartStoplist.txt'
+fox_stop = 'FoxStoplist.txt'
+
 
 def is_number(s):
     try:
@@ -133,8 +136,8 @@ if __name__ == "__main__":
 
     # Split text into sentences
     sentenceList = split_sentences(text)
-    stoppath = "FoxStoplist.txt"  # Fox stoplist contains "numbers", so it will not find "natural numbers" 
-    stoppath = "SmartStoplist.txt"  # SMART stoplist misses some of the lower-scoring keywords which means that the top 1/3 cuts off one of the 4.0 score words
+    stoppath = fox_stop  # Fox stoplist contains "numbers", so it will not find "natural numbers"
+    stoppath = smart_stop  # SMART stoplist misses some of the lower-scoring keywords which means that the top 1/3 cuts off one of the 4.0 score words
     stopwordpattern = build_stop_word_regex(stoppath)
 
     # generate candidate keywords
@@ -150,25 +153,23 @@ if __name__ == "__main__":
     sortedKeywords = sorted(keywordcandidates.items(), key=operator.itemgetter(1), reverse=True)
     print(sortedKeywords)
 
-    rake = Rake("SmartStoplist.txt")
+    rake = Rake(smart_stop)
     keywords = rake.run(text)
     print(keywords)
 
 
 def probability_keyword(string):
-    stoppath = 'SmartStoplist.txt'
+    stoppath = smart_stop
     sentence = string
     rake_object = Rake(stoppath)
     keywords_score_list = rake_object.run(sentence)
 
     keywords_keys = dict()
-    keywords_string_keys = ''
-    keywords_string_values = ''
-    keywords_values = dict()
     keywords_list = list()
     position = 0
     for i in keywords_score_list:
-        keywords_keys[i] = keywords_score_list[i]
+        keywords_keys['key'] = i
+        keywords_keys['score'] = keywords_score_list[i]
         keywords_list.insert(position, keywords_keys)
         keywords_keys = dict()
         position += 1
