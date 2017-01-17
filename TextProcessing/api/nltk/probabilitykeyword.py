@@ -1,8 +1,8 @@
 import re
 import operator
 
-smart_stop = 'SmartStoplist.txt'
-fox_stop = 'FoxStoplist.txt'
+smart_stop = 'api/nltk/SmartStoplist.txt'
+fox_stop = 'api/nltk/FoxStoplist.txt'
 
 
 def is_number(s):

@@ -8,6 +8,7 @@ from api.models import JsonApiDescription, JsonAcronymToPartOfSpeech, JsonError,
 
 # noinspection PyBroadException
 from api.nltk.languagedetector import GenerateReply, DetectLanguage
+from api.nltk.probabilitykeyword import probability_keyword
 from api.nltk.sentencetreebuilder import SentenceTreeBuilder
 
 
@@ -52,6 +53,7 @@ class JsonGenerator:
         return json.dumps({
             JsonAnnotatedSentence.annotatedSentence: tostring(
                 element=SentenceTreeBuilder.build_text_xml(requestSentence), encoding="unicode"),
+            JsonAnnotatedSentence.sentenceKeywords: probability_keyword(requestSentence),
             JsonError.errorField: False
         })
 

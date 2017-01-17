@@ -112,5 +112,6 @@ class InvalidWordException(Exception):
 
 
 if __name__ == "__main__":
-    #print(WordNetLemmatizer().lemmatize("She has apples"))
-    print(tostring(element=SentenceTreeBuilder.build_text_xml("Joe owns a dog. He marries Joe. It barks."), encoding="unicode"))
+    # print(WordNetLemmatizer().lemmatize("She has apples"))
+    print(tostring(element=SentenceTreeBuilder.build_text_xml("Joe owns a dog. He marries Joe. It barks."),
+                   encoding="unicode"))

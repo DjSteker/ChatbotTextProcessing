@@ -16,6 +16,7 @@ class JsonAcronymToPartOfSpeech:
 
 class JsonAnnotatedSentence:
     annotatedSentence = "annotatedSentence"
+    sentenceKeywords = "sentenceKeywords"
 
 
 class JsonResponseErrorMessage:
